@@ -4,6 +4,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Activation
 from keras.layers import LSTM
 import keras
+import string
 
 
 # TODO: fill out the function below that transforms the input series 
@@ -36,16 +37,19 @@ def build_part1_RNN(window_size):
 
 ### TODO: return the text input with only ascii lowercase and the punctuation given below included.
 def cleaned_text(text):
-    punctuation = ['!', ',', '.', ':', ';', '?']
-
-    ascii_filter = ['@','#','&','*','/','+','-','$','%','&','(',')','[',']','{','}','©','¨','¢','\xa0']
+    text.lower()
+    text = text.replace('à', 'a')
+    text = text.replace('â', 'a')
+    text = text.replace('è', 'e')
+    text = text.replace('é', 'e')
+    text = text.replace('-', 'e')
+    text = text.replace('  ',' ')
     
-    for i in ascii_filter:
-        text = text.replace(i, ' ')
+    punctuation = ['!', ',', '.', ':', ';', '?']
+    ascii_lowercase_letters = string.ascii_lowercase
+    allowed_list = punctuation + [x for x in ascii_lowercase_letters] + [' ']
 
-    text = text.replace('ã', 'a')
-
-    return text
+    return ''.join(x for x in text if x in allowed_list)
 
 ### TODO: fill out the function below that transforms the input text and window-size into a set of input/output pairs for use with our RNN model
 def window_transform_text(text, window_size, step_size):
