@@ -42,7 +42,7 @@ def cleaned_text(text):
     text = text.replace('â', 'a')
     text = text.replace('è', 'e')
     text = text.replace('é', 'e')
-    text = text.replace('-', 'e')
+    text = text.replace('-', ' ')
     text = text.replace('  ',' ')
     
     punctuation = ['!', ',', '.', ':', ';', '?']
